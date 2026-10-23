@@ -11,7 +11,7 @@ export function TilList({ tils }: { tils: Til[] }) {
   return (
     <ol>
       {tils.map((til) => (
-        <li key={til.id}>
+        <li key={til.id} className='mb-8'>
           <TIL til={til} />
         </li>
       ))}
@@ -32,8 +32,7 @@ export const TIL = ({ til, full = false }: { til: Til; full?: boolean }) => {
         </Link>
       </h2>
       {full ? <Markdown source={til.body} /> : <p className="text-base">{excerpt(til.body)}</p>}
-
-      {til.source ? (
+      {til.source?.filter(t => t)?.length ? (
         <div className="text-sm text-stone-500 mt-2">
           Source:{' '}
           {til.source.map((s) => (
