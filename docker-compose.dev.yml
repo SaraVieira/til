@@ -1,0 +1,38 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    environment:
+      DATABASE_URL: postgresql://til:til@postgres:5432/til
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin}
+      SESSION_SECRET: dev-session-secret-at-least-32-characters-long
+      SITE_URL: http://localhost:3000
+      VITE_USE_POLLING: 'true'
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+      - /app/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: til
+      POSTGRES_PASSWORD: til
+      POSTGRES_DB: til
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres-dev-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U til -d til']
+      interval: 2s
+      timeout: 5s
+      retries: 15
+
+volumes:
+  postgres-dev-data:

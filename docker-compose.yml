@@ -1,0 +1,45 @@
+services:
+  app:
+    build: .
+    environment:
+      SERVICE_URL_APP_3000: ${SERVICE_URL_APP_3000:-}
+      SITE_URL: ${SERVICE_URL_APP:-http://localhost:3000}
+      DATABASE_URL: postgresql://${SERVICE_USER_POSTGRES:-til}:${SERVICE_PASSWORD_POSTGRES:-til}@postgres:5432/til
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?}
+      SESSION_SECRET: ${SERVICE_PASSWORD_64_SESSION:?}
+    ports:
+      - 3000
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          'CMD',
+          'node',
+          '-e',
+          "fetch('http://localhost:3000/rss.xml').then((r) => process.exit(r.ok ? 0 : 1)).catch(() => process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: ${SERVICE_USER_POSTGRES:-til}
+      POSTGRES_PASSWORD: ${SERVICE_PASSWORD_POSTGRES:-til}
+      POSTGRES_DB: til
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U $${POSTGRES_USER} -d til']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  postgres-data:

@@ -1,0 +1,64 @@
+{
+  "name": "til",
+  "private": true,
+  "type": "module",
+  "imports": {
+    "#/*": "./src/*"
+  },
+  "scripts": {
+    "dev": "vite dev --port 3000",
+    "generate-routes": "tsr generate",
+    "build": "vite build",
+    "preview": "vite preview",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:push": "drizzle-kit push",
+    "db:pull": "drizzle-kit pull",
+    "db:studio": "drizzle-kit studio",
+    "lint": "oxlint",
+    "format": "oxfmt",
+    "check": "oxfmt --check && oxlint && tsc --noEmit",
+    "start": "drizzle-kit migrate && node .output/server/index.mjs",
+    "typecheck": "tsc --noEmit",
+    "start:local": "node --env-file=.env.local .output/server/index.mjs",
+    "docker:dev": "docker compose -f docker-compose.dev.yml up --build --renew-anon-volumes",
+    "docker:dev:down": "docker compose -f docker-compose.dev.yml down"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.18",
+    "@tanstack/react-devtools": "0.10.13",
+    "@tanstack/react-router": "1.170.45",
+    "@tanstack/react-router-devtools": "1.167.2",
+    "@tanstack/react-start": "1.169.3",
+    "dotenv": "^18.0.8",
+    "drizzle-kit": "^0.31.9",
+    "drizzle-orm": "^0.45.1",
+    "marked": "^18.1.1",
+    "nitro": "3.0.260903-beta",
+    "pg": "^8.16.3",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "@tanstack/devtools-vite": "0.8.5",
+    "@tanstack/router-cli": "^1.132.0",
+    "@types/node": "^22.10.2",
+    "@types/pg": "^8.15.6",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^6.0.1",
+    "oxfmt": "^0.74.0",
+    "oxlint": "^1.89.0",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.0"
+  },
+  "packageManager": "pnpm@10.28.1",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "lightningcss"
+    ]
+  }
+}
