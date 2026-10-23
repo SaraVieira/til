@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminRouteRouteImport } from './routes/admin/route'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as RssDotxmlRouteImport } from './routes/rss[.]xml'
+import { Route as WhyRouteImport } from './routes/why'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminIdRouteImport } from './routes/admin/$id'
 import { Route as TagsIndexRouteImport } from './routes/tags/index'
@@ -37,6 +38,11 @@ const LoginRoute = LoginRouteImport.update({
 const RssDotxmlRoute = RssDotxmlRouteImport.update({
   id: '/rss.xml',
   path: '/rss.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WhyRoute = WhyRouteImport.update({
+  id: '/why',
+  path: '/why',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminIndexRoute = AdminIndexRouteImport.update({
@@ -70,6 +76,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AdminRouteRouteWithChildren
   '/login': typeof LoginRoute
   '/rss.xml': typeof RssDotxmlRoute
+  '/why': typeof WhyRoute
   '/admin/$id': typeof AdminIdRoute
   '/tags/$tag': typeof TagsTagRoute
   '/til/$slug': typeof TilSlugRoute
@@ -80,6 +87,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/rss.xml': typeof RssDotxmlRoute
+  '/why': typeof WhyRoute
   '/admin/$id': typeof AdminIdRoute
   '/tags/$tag': typeof TagsTagRoute
   '/til/$slug': typeof TilSlugRoute
@@ -92,6 +100,7 @@ export interface FileRoutesById {
   '/admin': typeof AdminRouteRouteWithChildren
   '/login': typeof LoginRoute
   '/rss.xml': typeof RssDotxmlRoute
+  '/why': typeof WhyRoute
   '/admin/$id': typeof AdminIdRoute
   '/tags/$tag': typeof TagsTagRoute
   '/til/$slug': typeof TilSlugRoute
@@ -105,6 +114,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/login'
     | '/rss.xml'
+    | '/why'
     | '/admin/$id'
     | '/tags/$tag'
     | '/til/$slug'
@@ -115,6 +125,7 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/rss.xml'
+    | '/why'
     | '/admin/$id'
     | '/tags/$tag'
     | '/til/$slug'
@@ -126,6 +137,7 @@ export interface FileRouteTypes {
     | '/admin'
     | '/login'
     | '/rss.xml'
+    | '/why'
     | '/admin/$id'
     | '/tags/$tag'
     | '/til/$slug'
@@ -138,6 +150,7 @@ export interface RootRouteChildren {
   AdminRouteRoute: typeof AdminRouteRouteWithChildren
   LoginRoute: typeof LoginRoute
   RssDotxmlRoute: typeof RssDotxmlRoute
+  WhyRoute: typeof WhyRoute
   TagsTagRoute: typeof TagsTagRoute
   TilSlugRoute: typeof TilSlugRoute
   TagsIndexRoute: typeof TagsIndexRoute
@@ -171,6 +184,13 @@ declare module '@tanstack/react-router' {
       path: '/rss.xml'
       fullPath: '/rss.xml'
       preLoaderRoute: typeof RssDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/why': {
+      id: '/why'
+      path: '/why'
+      fullPath: '/why'
+      preLoaderRoute: typeof WhyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/': {
@@ -230,6 +250,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminRouteRoute: AdminRouteRouteWithChildren,
   LoginRoute: LoginRoute,
   RssDotxmlRoute: RssDotxmlRoute,
+  WhyRoute: WhyRoute,
   TagsTagRoute: TagsTagRoute,
   TilSlugRoute: TilSlugRoute,
   TagsIndexRoute: TagsIndexRoute,

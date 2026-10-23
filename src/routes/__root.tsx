@@ -42,6 +42,7 @@ function RootLayout() {
           </span>
         </Link>
         <nav className="flex items-center gap-2">
+          <Link to="/why">Why</Link>
           <Link to="/tags">Tags</Link>
           <a href="/rss.xml">RSS</a>
         </nav>
