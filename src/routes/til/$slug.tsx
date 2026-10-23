@@ -1,7 +1,4 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { Markdown } from '#/components/Markdown'
-import { TagList } from '#/components/TagList'
-import { formatDate } from '#/lib/markdown'
 import { getTil } from '#/server/tils.functions'
 import { TIL } from '#/components/TilList'
 
@@ -19,7 +16,7 @@ function TilPage() {
 
   return (
     <article>
-      <TIL til={til} />
+      <TIL til={til} full />
       {isAdmin && (
         <Link to="/admin/$id" params={{ id: String(til.id) }}>
           Edit

@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import type { Til } from '#/db/schema'
 import { excerpt, formatDate } from '#/lib/markdown'
+import { Markdown } from './Markdown'
 import { TagList } from './TagList'
 
 export function TilList({ tils }: { tils: Til[] }) {
@@ -18,7 +19,7 @@ export function TilList({ tils }: { tils: Til[] }) {
   )
 }
 
-export const TIL = ({ til }: { til: Til }) => {
+export const TIL = ({ til, full = false }: { til: Til; full?: boolean }) => {
   return (
     <>
       <div className="flex items-center gap-8 mb-2 text-sm">
@@ -30,7 +31,7 @@ export const TIL = ({ til }: { til: Til }) => {
           {til.title}
         </Link>
       </h2>
-      <p className="text-base">{excerpt(til.body)}</p>
+      {full ? <Markdown source={til.body} /> : <p className="text-base">{excerpt(til.body)}</p>}
 
       {til.source ? (
         <div className="text-sm text-stone-500 mt-2">
