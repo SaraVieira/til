@@ -5,7 +5,15 @@ import { db } from '#/db'
 import { tils } from '#/db/schema'
 import { assertAdmin } from './session'
 
-export type TilInput = { title: string; body: string; tags: string[]; source: string[] }
+export type TilInput = {
+  title: string
+  body: string
+  tags: string[]
+  source: string[]
+  createdAt: string
+}
+
+type ParsedTilInput = Omit<TilInput, 'createdAt'> & { createdAt: Date }
 
 function slugify(value: string) {
   return value
@@ -17,13 +25,15 @@ function slugify(value: string) {
     .slice(0, 80)
 }
 
-function parseInput(data: TilInput): TilInput {
+function parseInput(data: TilInput): ParsedTilInput {
   const title = data.title.trim()
   const body = data.body.trim()
   if (!title) throw new Error('Title is required')
   if (!body) throw new Error('Body is required')
+  const createdAt = new Date(data.createdAt)
+  if (Number.isNaN(createdAt.getTime())) throw new Error('Date is invalid')
   const tags = [...new Set(data.tags.map((tag) => slugify(tag)).filter(Boolean))]
-  return { title, body, tags, source: data.source }
+  return { title, body, tags, source: data.source, createdAt }
 }
 
 async function uniqueSlug(title: string, ignoreId?: number) {
