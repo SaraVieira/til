@@ -31,12 +31,12 @@ function Home() {
   }, [query, navigate])
 
   return (
-<>
+    <>
       <input
         type="search"
         placeholder="Search what I've learned…"
         value={query}
-        className='mb-8 w-full border-amber-600 border-2 rounded-lg bg-stone-100 p-2'
+        className="mb-8 w-full border-amber-600 border-2 rounded-lg bg-stone-100 p-2"
         onChange={(e) => setQuery(e.target.value)}
       />
       <TilList tils={tils} />

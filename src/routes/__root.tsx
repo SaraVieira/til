@@ -30,19 +30,23 @@ export const Route = createRootRoute({
 
 function RootLayout() {
   return (
-    <div className='mt-12 max-w-[80%] w-2xl mx-auto'>
-      <header className='mb-8 mx-auto font-sans flex items-center justify-between'>
-        <Link to="/" className='title text-2xl font-bold'>
-          <span className='text-amber-700 group w-full flex transition-all'>
-            T<span className='group-hover:block hidden text-stone-800'>oday</span><span className='group-hover:block hidden text-stone-800'>&nbsp;</span>I<span className='group-hover:block hidden text-stone-800'>&nbsp;</span>L<span className='group-hover:block hidden text-stone-800'>earned</span><span>.</span>
+    <div className="mt-12 max-w-[80%] w-2xl mx-auto">
+      <header className="mb-8 mx-auto font-sans flex items-center justify-between">
+        <Link to="/" className="title text-2xl font-bold">
+          <span className="text-amber-700 group w-full flex transition-all">
+            T<span className="group-hover:block hidden text-stone-800">oday</span>
+            <span className="group-hover:block hidden text-stone-800">&nbsp;</span>I
+            <span className="group-hover:block hidden text-stone-800">&nbsp;</span>L
+            <span className="group-hover:block hidden text-stone-800">earned</span>
+            <span>.</span>
           </span>
         </Link>
-        <nav className='flex items-center gap-2'>
+        <nav className="flex items-center gap-2">
           <Link to="/tags">Tags</Link>
           <a href="/rss.xml">RSS</a>
         </nav>
       </header>
-      <main className='container'>
+      <main className="container">
         <Outlet />
       </main>
     </div>
@@ -55,7 +59,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className='font-sans bg-[#eaeaea] min-h-screen text-[#111]'>
+      <body className="font-sans bg-[#eaeaea] min-h-screen text-[#111]">
         {children}
         <TanStackDevtools
           config={{ position: 'bottom-right' }}

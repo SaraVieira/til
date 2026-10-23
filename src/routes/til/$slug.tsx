@@ -3,6 +3,7 @@ import { Markdown } from '#/components/Markdown'
 import { TagList } from '#/components/TagList'
 import { formatDate } from '#/lib/markdown'
 import { getTil } from '#/server/tils.functions'
+import { TIL } from '#/components/TilList'
 
 export const Route = createFileRoute('/til/$slug')({
   loader: ({ params }) => getTil({ data: { slug: params.slug } }),
@@ -18,12 +19,7 @@ function TilPage() {
 
   return (
     <article>
-      <header>
-        <time>{formatDate(til.createdAt)}</time>
-        <h1>{til.title}</h1>
-        <TagList tags={til.tags} />
-      </header>
-      <Markdown source={til.body} />
+      <TIL til={til} />
       {isAdmin && (
         <Link to="/admin/$id" params={{ id: String(til.id) }}>
           Edit

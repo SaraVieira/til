@@ -12,13 +12,13 @@ function TagsPage() {
 
   return (
     <div>
-      <h1>Tags</h1>
+      <h1 className='text-2xl font-bold mb-8'>Tags</h1>
       {tags.length ? (
         <ul>
           {tags.map(({ tag, count }) => (
             <li key={tag}>
               <Link to="/tags/$tag" params={{ tag }}>
-                #{tag} <span>{count}</span>
+                <span className="text-amber-700">#{tag}</span> <span className='pl-12'>{count} tidbit{ tags.length > 1 ? "s": ""}</span>
               </Link>
             </li>
           ))}
